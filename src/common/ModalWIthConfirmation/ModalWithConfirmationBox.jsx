@@ -1,13 +1,13 @@
-import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Slide } from "@mui/material";
-import React from "react";
+import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Slide } from '@mui/material';
+import React from 'react';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-  });
-  
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export default function ModalWithConfirmationBox({
   open,
+  maxWidth = 'md',
   title,
   children,
   handleClose,
@@ -19,7 +19,7 @@ export default function ModalWithConfirmationBox({
     <Dialog
       open={open}
       onClose={handleClose}
-      maxWidth="md"
+      maxWidth={maxWidth}
       fullWidth
       TransitionComponent={Transition}
       aria-labelledby="alert-dialog-title"
@@ -27,14 +27,14 @@ export default function ModalWithConfirmationBox({
     >
       <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          {children}
-        </DialogContentText>
+        <DialogContentText id="alert-dialog-description">{children}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} variant="outlined">
-          {primaryButton}
-        </Button>
+        {primaryButton ? (
+          <Button onClick={handleClose} variant="outlined">
+            {primaryButton}
+          </Button>
+        ) : null}
         <Button onClick={handleSubmit} variant="contained" autoFocus>
           {secondaryButton}
         </Button>
