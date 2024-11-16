@@ -42,14 +42,6 @@ export const dashboardAPI = createApi({
     getDashboard: builder.query({
       query: () => '/api/dashboard',
       providesTags: ['Dashboard'],
-      onQueryStarted: async (arg, { queryFulfilled, dispatch }) => {
-        try {
-          const result = await queryFulfilled;
-          dispatch(setDefaultGroup(result.data.id));
-        } catch (error) {
-          console.log('error>>>', error);
-        }
-      },
     }),
     getTemplates: builder.query({
       query: ({ group_type_id }) => `/api/templates?group_type_id=${group_type_id}`,

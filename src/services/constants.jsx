@@ -1,7 +1,7 @@
 /**
  * ENDPOINT used to retrieve api details
  */
-export const ENDPOINT = 'http://192.168.1.222:3000';
+export const ENDPOINT = 'https://homesquad-staging.muglan.app/';
 
 /**
  * prepareHeaders function is used to derieve headers
@@ -11,7 +11,7 @@ export const ENDPOINT = 'http://192.168.1.222:3000';
  * @returns updated headers with a valid jwt token
  */
 export const prepareHeaders = async (headers, { getState }) => {
-  const { base } = getState();
+  const { base = {} } = getState();
   const { user } = base;
   if (user) {
     headers.set('X-User-Identification-Id', user.id);
