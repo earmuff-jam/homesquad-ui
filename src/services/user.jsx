@@ -15,7 +15,9 @@ export const userAPI = createApi({
     updateUser: builder.mutation({
       query: ({ data }) => {
         let formData = new FormData();
-        formData.append('profile_picture', data.profile_picture);
+        formData.append('profile_picture', data?.profile_picture || null);
+        formData.append('firstname', data.firstname);
+        formData.append('surname', data.surname);
         return {
           url: 'api/users',
           method: 'PATCH',

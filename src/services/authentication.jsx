@@ -17,6 +17,14 @@ export const authenticationAPI = createApi({
         };
       },
     }),
+    getSignOut: builder.mutation({
+      query: () => {
+        return {
+          url: '/api/sessions',
+          method: 'DELETE',
+        };
+      },
+    }),
     getSignUp: builder.mutation({
       query: ({ data }) => ({
         url: 'api/users/sign_up',
@@ -34,4 +42,4 @@ export const authenticationAPI = createApi({
   }),
 });
 
-export const { useGetSignInMutation, useGetSignUpMutation, useGetAcceptInviteMutation } = authenticationAPI;
+export const { useGetSignInMutation, useGetSignOutMutation, useGetSignUpMutation, useGetAcceptInviteMutation } = authenticationAPI;

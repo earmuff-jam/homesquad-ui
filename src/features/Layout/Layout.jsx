@@ -14,15 +14,20 @@ import {
 import Content from './Content';
 import { Outlet } from 'react-router-dom';
 import { Suspense, useState } from 'react';
-import { lightTheme } from '../../utils/Theme';
-import { MenuOutlined } from '@mui/icons-material';
+import { darkTheme, lightTheme } from '../../utils/Theme';
+import { DarkModeRounded, LightModeRounded, LogoutRounded, MenuOutlined } from '@mui/icons-material';
 import LoginForm from '../Auth/LoginForm';
 import SignupForm from '../Auth/SignupForm';
 import ModalWithConfirmationBox from '../../common/ModalWIthConfirmation/ModalWithConfirmationBox';
+import { logout } from '../../utils/utils';
+import { authenticationAPI } from '../../services/authentication';
 
 export default function Layout() {
+  const [signOutMutation] = authenticationAPI.useGetSignOutMutation();
   const [user, setUser] = useState(localStorage.getItem('userID'));
+
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [isLightMode, setIsLightMode] = useState(true);
   const [showSignupModal, setShowSignUpModal] = useState(false);
 
   const handleDrawerOpen = () => setOpenDrawer(true);
@@ -31,6 +36,13 @@ export default function Layout() {
   const handleLoginSuccess = (data) => {
     setUser(data.id);
   };
+
+  const handleSignout = async () => {
+    await signOutMutation();
+    logout(); // remove user session from local storage
+  };
+
+  const handleTheme = () => setIsLightMode(!isLightMode);
 
   if (!user) {
     return (
@@ -48,7 +60,7 @@ export default function Layout() {
   }
 
   return (
-    <ThemeProvider theme={lightTheme}>
+    <ThemeProvider theme={isLightMode ? lightTheme : darkTheme}>
       <CssBaseline />
       <Suspense
         fallback={
@@ -65,6 +77,12 @@ export default function Layout() {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               HomeSquad
             </Typography>
+            <Stack direction="row">
+              <IconButton onClick={handleTheme}>{!isLightMode ? <LightModeRounded /> : <DarkModeRounded />}</IconButton>
+              <IconButton onClick={handleSignout}>
+                <LogoutRounded />
+              </IconButton>
+            </Stack>
           </Toolbar>
         </AppBar>
         <Stack direction="row" spacing="1rem" sx={{ mt: '5rem' }}>

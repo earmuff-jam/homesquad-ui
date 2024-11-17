@@ -9,7 +9,6 @@ export const dashboardAPI = createApi({
     prepareHeaders,
   }),
   endpoints: (builder) => ({
-    // groups and types of group
     getGroups: builder.query({
       query: () => '/api/groups',
       providesTags: ['Groups'],
