@@ -5,35 +5,44 @@ import {
   Container,
   CssBaseline,
   IconButton,
-  Skeleton,
   Stack,
   ThemeProvider,
   Toolbar,
   Typography,
 } from '@mui/material';
 
-import { MenuOutlined } from '@mui/icons-material';
+import Content from './Content';
 import { Outlet } from 'react-router-dom';
 import { Suspense, useState } from 'react';
-import Content from './Content';
 import { lightTheme } from '../../utils/Theme';
-import { useGetUserQuery } from '../../services/user';
+import { MenuOutlined } from '@mui/icons-material';
+import LoginForm from '../Auth/LoginForm';
+import SignupForm from '../Auth/SignupForm';
 import ModalWithConfirmationBox from '../../common/ModalWIthConfirmation/ModalWithConfirmationBox';
 
 export default function Layout() {
-  const { data: currentUser, isLoading: isUserQueryLoading } = useGetUserQuery();
+  const [user, setUser] = useState(localStorage.getItem('userID'));
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [showSignupModal, setShowSignUpModal] = useState(false);
 
   const handleDrawerOpen = () => setOpenDrawer(true);
   const handleDrawerClose = () => setOpenDrawer(false);
 
-  if (isUserQueryLoading) {
-    return <Skeleton height="10rem" />;
-  }
+  const handleLoginSuccess = (data) => {
+    setUser(data.id);
+  };
 
-  if (!currentUser) {
+  if (!user) {
     return (
-      <ModalWithConfirmationBox maxWidth={'sm'} open={!currentUser} secondaryButton={'Login'}>
+      <ModalWithConfirmationBox maxWidth={'sm'} open={!user}>
+        {showSignupModal ? (
+          <SignupForm setShowSignUpModal={setShowSignUpModal} />
+        ) : (
+          <LoginForm
+            setShowSignUpModal={setShowSignUpModal}
+            onLoginSuccess={handleLoginSuccess} // Pass success handler to LoginForm
+          />
+        )}
       </ModalWithConfirmationBox>
     );
   }
