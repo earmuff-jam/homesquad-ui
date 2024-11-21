@@ -1,4 +1,4 @@
-import ItemCard from "../../features/HomePage/MobileStepper/ItemCard";
+import ItemCard from "../../common/ItemCard/ItemCard";
 
 export default {
   title: "HomePage/ItemCard",
