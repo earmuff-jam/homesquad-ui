@@ -2,6 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import HomePage from "../features/HomePage/HomePage";
 import Layout from "../features/Layout/Layout";
 import ChoreDetails from "../features/ChoreDetails/ChoreDetails";
+import ViewGroups from "../features/Groups/ViewGroups";
+import Profile from "../features/Profile/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -18,15 +20,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/profile",
-        element: <HomePage />,
-      },
-      {
-        path: "/templates",
-        element: <HomePage />,
+        element: <Profile />,
       },
       {
         path: "/groups",
-        element: <HomePage />,
+        element: <ViewGroups />,
       },
     ],
   },

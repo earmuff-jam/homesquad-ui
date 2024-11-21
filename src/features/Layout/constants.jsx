@@ -2,7 +2,6 @@ import {
   Groups2Rounded,
   HomeRounded,
   Person2Rounded,
-  TaskRounded,
 } from "@mui/icons-material";
 
 export const NAVIGATION_LIST = [
@@ -20,12 +19,6 @@ export const NAVIGATION_LIST = [
   },
   {
     id: 3,
-    icon: <TaskRounded fontSize="small" />,
-    label: "Templates",
-    to: "/templates",
-  },
-  {
-    id: 4,
     icon: <Groups2Rounded fontSize="small" />,
     label: "Groups",
     to: "/groups",

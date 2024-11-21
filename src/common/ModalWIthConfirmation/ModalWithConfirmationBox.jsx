@@ -1,5 +1,16 @@
 import React from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Slide } from '@mui/material';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  Slide,
+  Stack,
+  IconButton,
+  Divider,
+} from '@mui/material';
+import { CloseRounded } from '@mui/icons-material';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -25,7 +36,19 @@ export default function ModalWithConfirmationBox({
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
+      <DialogTitle id="alert-dialog-title">
+        {title ? (
+          <>
+            <Stack direction="row" justifyContent={'space-between'} alignItems={'center'}>
+              {title}
+              <IconButton onClick={handleClose} color="error">
+                <CloseRounded />
+              </IconButton>
+            </Stack>
+            <Divider sx={{ marginTop: '1rem', marginBottom: '1rem' }} />
+          </>
+        ) : null}
+      </DialogTitle>
       <DialogContent>{children}</DialogContent>
       <DialogActions>
         {primaryButton ? (
