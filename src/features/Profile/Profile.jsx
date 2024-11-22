@@ -1,6 +1,5 @@
 import { Skeleton, Stack } from '@mui/material';
 import { useGetUserQuery } from '../../services/user';
-import ItemCard from '../HomePage/MobileStepper/ItemCard';
 import UserDemographics from './UserDemographics';
 import UserDetails from './UserDetails';
 import UserStatus from './UserStatus';
@@ -9,6 +8,7 @@ import { useState } from 'react';
 import ActiveChores from './ActiveChores';
 import ActiveGroups from './ActiveGroups';
 import EditProfileDetails from './EditProfileDetails.jsx/EditProfileDetails';
+import ItemCard from '../../common/ItemCard/ItemCard';
 
 export default function Profile() {
   const { data, isLoading } = useGetUserQuery();

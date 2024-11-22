@@ -1,6 +1,6 @@
 import { Avatar, IconButton, Stack, Typography } from '@mui/material';
-import ItemCard from '../HomePage/MobileStepper/ItemCard';
 import { EditRounded } from '@mui/icons-material';
+import ItemCard from '../../common/ItemCard/ItemCard';
 
 export default function UserDemographics({ data = {}, handleEditMode }) {
   return (

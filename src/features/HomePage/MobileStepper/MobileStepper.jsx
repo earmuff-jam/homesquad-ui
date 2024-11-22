@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import AddTemplate from "./AddTemplate";
+import ViewTemplate from "./ViewTemplate";
 import AddChore from "./AddChore";
 
 const steps = ["Select Group", "Select Template", "Add chore"];
@@ -17,14 +17,14 @@ export default function MobileStepper() {
 
   const stepSelection = {
     1: (
-      <AddTemplate
+      <ViewTemplate
         titleText="Select Groups"
         emptyText="Add Groups to begin"
         items={[]}
       />
     ),
     2: (
-      <AddTemplate
+      <ViewTemplate
         titleText="Select Template"
         emptyText="Add Template to begin"
         items={[]}
