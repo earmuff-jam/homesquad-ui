@@ -1,6 +1,5 @@
 import { Button, Stack, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
-import { persistUser } from '../../utils/utils';
 import { BLANK_USER_LOGIN_FORM } from './constants';
 import Person2Rounded from '@mui/icons-material/Person2Rounded';
 import { authenticationAPI } from '../../services/authentication';

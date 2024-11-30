@@ -34,7 +34,7 @@ export default function Layout() {
   const handleDrawerOpen = () => setOpenDrawer(true);
   const handleDrawerClose = () => setOpenDrawer(false);
 
-  const handleLoginSuccess = async (data) => {
+  const handleLoginSuccess = async () => {
     await refetch();
   };
 
