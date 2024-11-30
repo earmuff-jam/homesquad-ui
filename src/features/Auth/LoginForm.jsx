@@ -58,9 +58,11 @@ export default function LoginForm({ setShowSignUpModal, onLoginSuccess }) {
     const draftRequest = {
       ...formattedData,
     };
-    const response = await signInMutation({ data: draftRequest }).unwrap();
-    persistUser(response);
-    onLoginSuccess(response);
+    // const response = await signInMutation({ data: draftRequest }).unwrap();
+    signInMutation({ data: draftRequest }).then((response) => {
+      // persistUser(response);
+      onLoginSuccess(response);
+    });
   };
 
   return (

@@ -5,12 +5,21 @@ export const userAPI = createApi({
   reducerPath: 'userAPI',
   baseQuery: fetchBaseQuery({
     baseUrl: ENDPOINT,
+    credentials: 'include',
     prepareHeaders,
   }),
   endpoints: (builder) => ({
     getUser: builder.query({
       query: () => '/api/users',
       providesTags: ['User'],
+    }),
+    changeTheme: builder.mutation({
+      query: ({ data }) => ({
+        url: '/api/users/change_theme',
+        method: 'PATCH',
+        body: data,
+      }),
+      invalidatesTags: ['User'],
     }),
     updateUser: builder.mutation({
       query: ({ data }) => {

@@ -2,6 +2,7 @@
  * ENDPOINT used to retrieve api details
  */
 export const ENDPOINT = 'https://homesquad-staging.muglan.app/';
+// export const ENDPOINT = 'http://localhost:3000/';
 
 /**
  * prepareHeaders function is used to derieve headers
@@ -10,12 +11,13 @@ export const ENDPOINT = 'https://homesquad-staging.muglan.app/';
  * @param {Object} headers - the headers used in http request
  * @returns updated headers with a valid jwt token
  */
+
+const getCookie = function (name) {
+  var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+  if (match) return match[2];
+};
+
 export const prepareHeaders = async (headers) => {
-  const userID = localStorage.getItem('userID');
-  const accessToken = localStorage.getItem('access');
-  if (userID) {
-    headers.set('X-User-Identification-Id', userID);
-    headers.set('X-User-Auth-Token', accessToken);
-  }
+  headers.set('X-CSRF-Token', getCookie('CSRF-TOKEN'));
   return headers;
 };

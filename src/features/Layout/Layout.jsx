@@ -21,20 +21,21 @@ import SignupForm from '../Auth/SignupForm';
 import ModalWithConfirmationBox from '../../common/ModalWIthConfirmation/ModalWithConfirmationBox';
 import { logout } from '../../utils/utils';
 import { authenticationAPI } from '../../services/authentication';
+import { useGetUserQuery, userAPI } from '../../services/user';
 
 export default function Layout() {
   const [signOutMutation] = authenticationAPI.useGetSignOutMutation();
-  const [user, setUser] = useState(localStorage.getItem('userID'));
+  const { data: user, refetch } = useGetUserQuery();
+  const [changeTheme] = userAPI.useChangeThemeMutation();
 
   const [openDrawer, setOpenDrawer] = useState(false);
-  const [isLightMode, setIsLightMode] = useState(true);
   const [showSignupModal, setShowSignUpModal] = useState(false);
 
   const handleDrawerOpen = () => setOpenDrawer(true);
   const handleDrawerClose = () => setOpenDrawer(false);
 
-  const handleLoginSuccess = (data) => {
-    setUser(data.id);
+  const handleLoginSuccess = async (data) => {
+    await refetch();
   };
 
   const handleSignout = async () => {
@@ -42,7 +43,11 @@ export default function Layout() {
     logout(); // remove user session from local storage
   };
 
-  const handleTheme = () => setIsLightMode(!isLightMode);
+  const handleTheme = () => {
+    changeTheme({
+      data: { theme: user?.theme === 'light' ? 'dark' : 'light' },
+    });
+  };
 
   if (!user) {
     return (
@@ -60,7 +65,7 @@ export default function Layout() {
   }
 
   return (
-    <ThemeProvider theme={isLightMode ? lightTheme : darkTheme}>
+    <ThemeProvider theme={user?.theme === 'light' ? lightTheme : darkTheme}>
       <CssBaseline />
       <Suspense
         fallback={
@@ -78,7 +83,9 @@ export default function Layout() {
               HomeSquad
             </Typography>
             <Stack direction="row">
-              <IconButton onClick={handleTheme}>{!isLightMode ? <LightModeRounded /> : <DarkModeRounded />}</IconButton>
+              <IconButton onClick={handleTheme}>
+                {user?.theme === 'light' ? <LightModeRounded /> : <DarkModeRounded />}
+              </IconButton>
               <IconButton onClick={handleSignout}>
                 <LogoutRounded />
               </IconButton>
