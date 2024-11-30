@@ -10,17 +10,21 @@ export const authenticationAPI = createApi({
   endpoints: (builder) => ({
     getSignIn: builder.mutation({
       query: ({ data }) => {
+        let formData = new FormData();
+        formData.append('user[email]', data.email);
+        formData.append('user[password]', data.password);
         return {
-          url: '/api/sessions',
+          url: '/users/sign_in',
           method: 'POST',
-          body: data,
+          body: formData,
+          formData: true,
         };
       },
     }),
     getSignOut: builder.mutation({
       query: () => {
         return {
-          url: '/api/sessions',
+          url: '/users/sign_out',
           method: 'DELETE',
         };
       },
@@ -42,4 +46,5 @@ export const authenticationAPI = createApi({
   }),
 });
 
-export const { useGetSignInMutation, useGetSignOutMutation, useGetSignUpMutation, useGetAcceptInviteMutation } = authenticationAPI;
+export const { useGetSignInMutation, useGetSignOutMutation, useGetSignUpMutation, useGetAcceptInviteMutation } =
+  authenticationAPI;

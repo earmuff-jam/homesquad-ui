@@ -1,6 +1,5 @@
 import { Button, Stack, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
-import { persistUser } from '../../utils/utils';
 import { BLANK_USER_LOGIN_FORM } from './constants';
 import Person2Rounded from '@mui/icons-material/Person2Rounded';
 import { authenticationAPI } from '../../services/authentication';
@@ -58,9 +57,9 @@ export default function LoginForm({ setShowSignUpModal, onLoginSuccess }) {
     const draftRequest = {
       ...formattedData,
     };
-    const response = await signInMutation({ data: draftRequest }).unwrap();
-    persistUser(response);
-    onLoginSuccess(response);
+    signInMutation({ data: draftRequest }).then((response) => {
+      onLoginSuccess(response);
+    });
   };
 
   return (

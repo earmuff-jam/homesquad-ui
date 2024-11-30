@@ -12,6 +12,14 @@ export const userAPI = createApi({
       query: () => '/api/users',
       providesTags: ['User'],
     }),
+    changeTheme: builder.mutation({
+      query: ({ data }) => ({
+        url: '/api/users/change_theme',
+        method: 'PATCH',
+        body: data,
+      }),
+      invalidatesTags: ['User'],
+    }),
     updateUser: builder.mutation({
       query: ({ data }) => {
         let formData = new FormData();
