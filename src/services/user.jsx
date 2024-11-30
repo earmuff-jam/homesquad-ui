@@ -5,7 +5,6 @@ export const userAPI = createApi({
   reducerPath: 'userAPI',
   baseQuery: fetchBaseQuery({
     baseUrl: ENDPOINT,
-    credentials: 'include',
     prepareHeaders,
   }),
   endpoints: (builder) => ({

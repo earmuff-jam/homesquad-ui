@@ -1,8 +1,8 @@
 /**
  * ENDPOINT used to retrieve api details
  */
-export const ENDPOINT = 'https://homesquad-staging.muglan.app/';
-// export const ENDPOINT = 'http://localhost:3000/';
+// export const ENDPOINT = 'https://homesquad-staging.muglan.app/';
+export const ENDPOINT = 'http://localhost:3000/';
 
 /**
  * prepareHeaders function is used to derieve headers
